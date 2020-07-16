@@ -62,17 +62,13 @@ const HomePage = () => {
   };
 
   const loadCards = () => {
-    if (activeDeckIds.length < 1) {
-      setPlayDisabled(true);
-    } else {
-      const tempCards = activeDeckIds.map((id) => {
-        const d = JSON.parse(localStorage.getItem(id));
+    const tempCards = activeDeckIds.map((id) => {
+      const d = JSON.parse(localStorage.getItem(id));
 
-        return d.cards;
-      });
+      return d.cards;
+    });
 
-      setCards(shuffle([].concat(...tempCards)));
-    }
+    setCards(shuffle([].concat(...tempCards)));
   };
 
   const beginGame = useCallback(() => {
@@ -85,6 +81,16 @@ const HomePage = () => {
   useEffect(() => {
     loadActiveDeckIds();
   }, []);
+
+  useEffect(() => {
+    if (activeDeckIds !== undefined) {
+      if (activeDeckIds.length < 1) {
+        setPlayDisabled(true);
+      } else {
+        setPlayDisabled(false);
+      }
+    }
+  }, [activeDeckIds]);
 
   return (
     <>
