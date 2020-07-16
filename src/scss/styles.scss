@@ -2,6 +2,7 @@
 @import "global/colors";
 @import "global/typography";
 @import "global/layout";
+@import "global/mixins";
 
 // Components
 @import "components/button";
@@ -11,3 +12,4 @@
 @import "components/game";
 @import "components/decks";
 @import "components/cards";
+@import "components/404";

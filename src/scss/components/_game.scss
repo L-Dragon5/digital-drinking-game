@@ -5,7 +5,7 @@
   height: 100vh;
   background: rgba(0, 0, 0, 0.1);
   z-index: 1;
-  transition: 1200ms;
+  transition: opacity 1200ms;
 
   &--active {
     opacity: 1;
@@ -17,5 +17,46 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    perspective: 1200px;
+  }
+
+  &__card {
+    height: 50vh;
+    width: 35vh;
+    background-color: $color-white;
+    border: 1px solid $color-black;
+    border-radius: 12px;
+    padding: 32px 16px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.75s;
+    transform-style: preserve-3d;
+
+    &__title {
+      font-size: $card-title-mobile-font-size;
+      font-weight: bold;
+      user-select: none;
+
+      @include respond-to('medium') {
+        font-size: $card-title-desktop-font-size;
+      }
+    }
+
+    &__body {
+      font-size: $card-body-mobile-font-size;
+      user-select: none;
+
+      @include respond-to('medium') {
+        font-size: $card-body-desktop-font-size;
+      }
+    }
+
+    &__face {
+      backface-visibility: hidden;
+    }
+
+    &.is-flipped {
+      transform: rotateY(180deg);
+    }
   }
 }

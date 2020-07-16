@@ -49,7 +49,11 @@
 
   &__title {
     text-align: center;
-    font-size: 2.5vmin;
+    font-size: 4vmin;
+
+    @include respond-to('medium') {
+      font-size: 2.2rem;
+    }
   }
 
   &__buttons {
@@ -58,13 +62,14 @@
     border-top: 1px solid $button-border-color;
     margin-top: 8px;
     padding: 16px 32px;
+    min-height: 30px;
+    height: 5vmin;
   }
 
   &__button {
     cursor: pointer;
 
     &__active {
-      height: 30px;
       content: ' ';
       border-radius: 8px;
       color: white;
@@ -79,7 +84,11 @@
     }
 
     &__view {
-      height: 30px;
+      padding: 0 8px;
+      font-size: 1.1rem;
+    }
+
+    &__export {
       padding: 0 8px;
       font-size: 1.1rem;
     }

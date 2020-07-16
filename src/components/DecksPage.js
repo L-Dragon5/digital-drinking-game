@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 import { NavLink, useHistory } from 'react-router-dom';
 
@@ -22,11 +22,26 @@ const DecksPage = () => {
     history.push(`/deck/${id}`);
   };
 
-  const setDeckInactive = (id) => {
-    const index = activeDeckIds.indexOf(id);
-
-    setActiveDeckIds((prevIds) => prevIds.filter((_, i) => i !== index));
+  const download = (content, fileName, contentType) => {
+    const a = document.createElement('a');
+    const file = new Blob([content], { type: contentType });
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
   };
+
+  const exportDeck = (id) => {
+    download(localStorage.getItem(id), `${id}.deck`, 'application/json');
+  };
+
+  const setDeckInactive = useCallback(
+    (id) => {
+      const index = activeDeckIds.indexOf(id);
+
+      setActiveDeckIds((prevIds) => prevIds.filter((_, i) => i !== index));
+    },
+    [activeDeckIds],
+  );
 
   const setDeckActive = (id) => {
     setActiveDeckIds((prevIds) => [...prevIds, id]);
@@ -35,34 +50,31 @@ const DecksPage = () => {
   const loadDecks = () => {
     const tempDecks = deckIds.map((item) => {
       const d = JSON.parse(localStorage.getItem(item));
+      let activeButton = null;
 
       if (activeDeckIds.includes(d.id)) {
-        return (
-          <div key={d.id} className="deck">
-            <div className="deck__title">
-              {d.name} - ({d.cards.length})
-            </div>
-            <div className="deck__buttons">
-              <button
-                type="button"
-                className="deck__button deck__button__active deck__button__active--active"
-                onClick={() => {
-                  setDeckInactive(d.id);
-                }}
-              >
-                Active
-              </button>
-              <button
-                type="button"
-                className="deck__button deck__button__view button"
-                onClick={() => {
-                  viewDeck(d.id);
-                }}
-              >
-                View
-              </button>
-            </div>
-          </div>
+        activeButton = (
+          <button
+            type="button"
+            className="deck__button deck__button__active deck__button__active--active"
+            onClick={() => {
+              setDeckInactive(d.id);
+            }}
+          >
+            Active
+          </button>
+        );
+      } else {
+        activeButton = (
+          <button
+            type="button"
+            className="deck__button deck__button__active deck__button__active--inactive"
+            onClick={() => {
+              setDeckActive(d.id);
+            }}
+          >
+            Inactive
+          </button>
         );
       }
 
@@ -72,15 +84,7 @@ const DecksPage = () => {
             {d.name} - ({d.cards.length})
           </div>
           <div className="deck__buttons">
-            <button
-              type="button"
-              className="deck__button deck__button__active deck__button__active--inactive"
-              onClick={() => {
-                setDeckActive(d.id);
-              }}
-            >
-              Inactive
-            </button>
+            {activeButton}
             <button
               type="button"
               className="deck__button deck__button__view button"
@@ -89,6 +93,15 @@ const DecksPage = () => {
               }}
             >
               View
+            </button>
+            <button
+              type="button"
+              className="deck__button deck__button__export button"
+              onClick={() => {
+                exportDeck(d.id);
+              }}
+            >
+              Export
             </button>
           </div>
         </div>

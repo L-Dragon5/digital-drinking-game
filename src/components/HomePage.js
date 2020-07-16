@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import { useHistory } from 'react-router-dom';
 
 const HomePage = () => {
   const history = useHistory();
   const [gameActive, setGameActive] = useState(false);
+  const [flipCard, setFlipCard] = useState(false);
   const [playDisabled, setPlayDisabled] = useState(false);
   const [activeDeckIds, setActiveDeckIds] = useState();
   const [cards, setCards] = useState();
+  const [currentCard, setCurrentCard] = useState();
 
   const shuffle = (array) => {
     let currentIndex = array.length;
@@ -33,11 +35,22 @@ const HomePage = () => {
     history.push(url);
   };
 
-  const beginGame = () => {
-    // TODO: Fade out all elements. Display deck of cards. Clicking on card will pick a random card in deck and display.
-    console.log(cards);
-    setGameActive(true);
-  };
+  const changeCard = useCallback(() => {
+    setTimeout(() => {
+      if (cards.length < 1) {
+        setCurrentCard({
+          title: 'No more cards!',
+          body: 'Thanks for playing! Refresh the page to start over.',
+        });
+      } else {
+        const randomIndex = Math.floor(Math.random() * cards.length);
+        setCurrentCard(cards[randomIndex]);
+        setCards((prevCards) => prevCards.filter((_, i) => i !== randomIndex));
+      }
+
+      setFlipCard(false);
+    }, 750);
+  }, [cards]);
 
   const loadActiveDeckIds = () => {
     if (localStorage.getItem('active_decks') === null) {
@@ -62,15 +75,16 @@ const HomePage = () => {
     }
   };
 
-  useEffect(() => {
-    loadActiveDeckIds();
-  }, []);
-
-  useEffect(() => {
+  const beginGame = useCallback(() => {
     if (activeDeckIds !== undefined) {
       loadCards();
     }
+    setGameActive(true);
   }, [activeDeckIds]);
+
+  useEffect(() => {
+    loadActiveDeckIds();
+  }, []);
 
   return (
     <>
@@ -100,8 +114,31 @@ const HomePage = () => {
 
       <div className={`game ${gameActive ? 'game--active' : ''}`}>
         <div className="game__content">
-          <div className="game__title">Game Time!</div>
-          <div className="game__card" />
+          <div
+            className={`game__card ${flipCard ? 'is-flipped' : ''}`}
+            onClick={() => {
+              if (!flipCard) {
+                setFlipCard(true);
+                changeCard();
+              }
+            }}
+          >
+            <div className="game__card__face">
+              {currentCard ? (
+                <>
+                  <div className="game__card__title">{currentCard.title}</div>
+                  <div className="game__card__body">{currentCard.body}</div>
+                </>
+              ) : (
+                <>
+                  <div className="game__card__title">Let&apos;s Begin!</div>
+                  <div className="game__card__body">
+                    Click on card to change cards.
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>

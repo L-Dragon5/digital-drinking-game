@@ -49,6 +49,7 @@
     font-weight: bold;
     width: 100%;
     box-sizing: border-box;
+    font-family: inherit;
   }
 
   &__body {
@@ -58,6 +59,7 @@
     max-height: 100%;
     box-sizing: border-box;
     resize: none;
+    font-family: inherit;
   }
 
   &__delete {
