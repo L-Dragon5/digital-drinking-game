@@ -1,0 +1,34 @@
+.home {
+  width: 70%;
+  height: 65%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  z-index: 5;
+  transition: 1200ms;
+
+  &--hide {
+    opacity: 0;
+  }
+
+  &__title {
+    font-size: 7vmin;
+    text-align: center;
+  }
+
+  &__buttons {
+    margin: 5rem 0;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__about {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+  }
+}

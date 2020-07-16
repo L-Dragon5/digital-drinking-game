@@ -1,0 +1,69 @@
+.cards {
+  display: flex;
+  flex-direction: column;
+
+  &__back {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    text-decoration: none;
+    color: $color-black;
+    font-size: 1.4rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__title {
+    background-color: $secondary-color;
+    font-size: 4vmin;
+    text-align: center;
+    padding: 1rem 0;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem;
+  }
+
+  &__cards {
+    display: grid;
+    gap: 1rem 1rem;
+    grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+    justify-items: stretch;
+    margin: 1rem;
+  }
+}
+
+.card {
+  background-color: $color-white;
+  border: 1px solid $color-black;
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__body {
+    font-size: 1.15rem;
+    width: 100%;
+    height: 10rem;
+    max-height: 100%;
+    box-sizing: border-box;
+    resize: none;
+  }
+
+  &__delete {
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    border-radius: 50%;
+  }
+}

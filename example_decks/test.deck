@@ -1,0 +1,26 @@
+{
+    "id": "test-deck-v1-12345",
+    "name": "Test Deck v1",
+    "cards": [
+        {
+            "title": "",
+            "body": "If you've ever cosplayed at a convention."
+        },
+        {
+            "title": "Most Likely To",
+            "body": "Find a S/O at an anime convention."
+        },
+        {
+            "title": "",
+            "body": "If you haven't checked your weight since quarantine started."
+        },
+        {
+            "title": "",
+            "body": "If you've never cosplayed before."
+        },
+        {
+            "title": "Truth or Drink",
+            "body": "Your guilty pleasure anime."
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+.button {
+  background-color: transparent;
+  border: 2px solid $button-border-color;
+  border-radius: 12px;
+  color: $button-text-color;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 3.5vmin;
+  transition: all 0.5s;
+
+  &:hover {
+    background-color: $button-border-color;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    color: $color-white;
+  }
+
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: initial;
+      box-shadow: initial;
+      color: initial;
+    }
+  }
+}

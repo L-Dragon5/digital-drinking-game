@@ -1,0 +1,87 @@
+.decks {
+  display: flex;
+  flex-direction: column;
+
+  &__back {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    text-decoration: none;
+    color: $color-black;
+    font-size: 1.4rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__title {
+    background-color: $secondary-color;
+    font-size: 4vmin;
+    text-align: center;
+    padding: 1rem 0;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem;
+
+    input[type="file"] {
+      visibility: hidden;
+      width: 1px;
+    }
+  }
+
+  &__decks {
+    display: grid;
+    gap: 1rem 1rem;
+    grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+    justify-items: stretch;
+    margin: 1rem;
+  }
+}
+
+.deck {
+  border: 2px solid $button-border-color;
+  border-radius: 8px;
+  padding: 8px;
+
+  &__title {
+    text-align: center;
+    font-size: 2.5vmin;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid $button-border-color;
+    margin-top: 8px;
+    padding: 16px 32px;
+  }
+
+  &__button {
+    cursor: pointer;
+
+    &__active {
+      height: 30px;
+      content: ' ';
+      border-radius: 8px;
+      color: white;
+
+      &--active {
+        background-color: $button-active;
+      }
+
+      &--inactive {
+        background-color: $button-inactive;
+      }
+    }
+
+    &__view {
+      height: 30px;
+      padding: 0 8px;
+      font-size: 1.1rem;
+    }
+  }
+}
