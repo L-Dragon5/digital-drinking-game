@@ -1,6 +1,5 @@
 {
   "name": "digital-drinking-game",
-  "homepage": "https://l-dragon5.github.io/digital-drinking-game/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
